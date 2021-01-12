@@ -1,0 +1,12 @@
+.card-img-top {
+    display: block;
+    max-height: 150px;
+    width: auto;
+    max-width: 150px;
+    height: auto;
+  }
+
+.card {
+    width: 250px;
+}
+  
