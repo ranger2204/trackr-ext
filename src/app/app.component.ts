@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Ptor } from 'protractor';
 import { TrackServiceService } from './track-service.service';
+import { environment } from '../environments/environment'
+import { CookieService } from 'ngx-cookie-service'
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,7 @@ import { TrackServiceService } from './track-service.service';
 })
 export class AppComponent implements OnInit {
   title = 'tel-ext';
+  baseURL = ''
   product:any = {
     site: "",
     name: "",
@@ -26,11 +28,22 @@ export class AppComponent implements OnInit {
   ]
 
 
-  constructor(private cd: ChangeDetectorRef, private trackerService: TrackServiceService){
+  constructor(private cd: ChangeDetectorRef, private trackerService: TrackServiceService, private cookieService: CookieService){
   }
   
   ngOnInit(){
     this.getDetails()
+    this.baseURL = this.cookieService.get('Trackr_baseURL')
+    
+    if(this.baseURL.length == 0)
+      this.baseURL = environment.baseURL
+    
+    console.log(this.baseURL)
+  }
+
+  updateBaseURL(url){
+    this.cookieService.set('Trackr_baseURL', url)
+    this.baseURL = url
   }
 
   addItem(){
@@ -39,7 +52,7 @@ export class AppComponent implements OnInit {
 
     this.cd.detectChanges()
 
-    this.trackerService.putProduct(this.product.url).subscribe((resp:any) => {
+    this.trackerService.putProduct(this.product.url, this.baseURL).subscribe((resp:any) => {
       this.loader = false;
       this.response_msg = resp.message
       this.cd.detectChanges()

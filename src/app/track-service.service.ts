@@ -9,8 +9,8 @@ export class TrackServiceService {
 
   constructor(private http: HttpClient) { }
 
-  putProduct(itemURL: string){
-    let url = environment.base_url+'/fetch_item'
+  putProduct(itemURL: string, baseURL: string){
+    let url = baseURL+'/fetch_item'
     return this.http.put(url, {
       'item_url': itemURL
     })
