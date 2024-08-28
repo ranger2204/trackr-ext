@@ -171,19 +171,25 @@ export class AppComponent implements OnInit {
       let product = {
         'title': [
           {'selector': 'B_NuCI', 'type': 'text', 'index': 0},
+          {'selector': 'VU-ZEz', 'type': 'text', 'index': 0},
           // {'selector': '#title', 'type': 'text', 'index': 0}
         ],
         'image': [
           {'selector': '_396cs4 _2amPTt _3qGmMb _3exPp9', 'type': 'src', 'index': 0},
           {'selector': '_2r_T1I _396QI4', 'type': 'src', 'index': 0},
+          {'selector': 'DByuf4 IZexXJ jLEJ7H', 'type': 'src', 'index': 0},
+          
+          
           // {'selector': '#imgBlkFront', 'type': 'src', 'index': 0}
         ],
         'reviews': [
           {'selector': '_2_R_DZ', 'type': 'text', 'index': 0},
+          {'selector': 'Wphh3N', 'type': 'text', 'index': 0},
           
         ],
         'price': [
           {'selector': '_30jeq3 _16Jk6d', 'type': 'text', 'index': 0},
+          {'selector': 'Nx9bqj CxhGGd', 'type': 'text', 'index': 0},
           // {'selector': '#priceblock_ourprice', 'type': 'text', 'index': 0},
           // {'selector': '#priceblock_saleprice', 'type': 'text', 'index': 0},
           // {'selector': 'a-size-base a-color-price a-color-price', 'type': 'text', 'index': 0}
