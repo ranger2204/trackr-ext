@@ -16,7 +16,7 @@
 <div class="card rounded-0 m-0" *ngIf="product.name.length != 0">
   <img class="card-img-top pt-2 m-auto" src="{{product.img_url}}" alt="Card image cap">
   <div class="card-body">
-    <h4 class="card-title">{{product.name}}</h4>
+    <h5 class="card-title">{{trim(product.name)}}</h5>
     <p class="card-text">{{product.price}}</p>
     <p class="card-text">{{product.rating}}</p>
     <button class="btn btn-primary rounded-0" (click)="addItem()" [disabled]="loader">Submit</button>

@@ -52,6 +52,12 @@ export class AppComponent implements OnInit {
     this.baseURL = url
   }
 
+  trim(str: String) {
+    if(str.length >= 200)
+      return str.slice(0, 50) + '...'
+    return str
+  }
+
   addItem(){
     this.loader = true;
     this.response_msg = null
