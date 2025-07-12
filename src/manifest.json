@@ -2,20 +2,17 @@
     "name": "TrackEmAll",
     "version": "1.0",
     "description": "TrackEmAll Chrome Extension",
-    "manifest_version": 2,
-    "browser_action": {
+    "manifest_version": 3,
+    "action": {
         "default_popup": "index.html"
-        
     },
     "permissions": [
         "tabs",
         "activeTab",
-        "webNavigation"
+        "webNavigation",
+        "scripting"
     ],
     "background": {
-        "scripts": [
-            "background-es5.js",
-            "runtime-es5.js"
-        ]
+        "service_worker": "background.js"
     }
 }

@@ -3,6 +3,9 @@ import { TrackServiceService } from './track-service.service';
 import { environment } from '../environments/environment'
 import { CookieService } from 'ngx-cookie-service'
 
+// Type declarations for Chrome APIs
+declare const chrome: any;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -563,60 +566,60 @@ export class AppComponent implements OnInit {
       this.cd.detectChanges()
     };
 
-    chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
+    chrome.tabs.query({currentWindow: true, active: true}, async (tabs) => {
 
         let site = populateSiteDetails(tabs[0].url)
-        switch(site){
-          case 'flipkart': chrome.tabs.executeScript(
-                            tabs[0].id,
-                            { code: 'document.body.innerHTML' }, populateProductDetailsFlipkart
-                          );
-                          break;
 
-          case 'amazon': chrome.tabs.executeScript(
-                            tabs[0].id,
-                            { code: 'document.body.innerHTML' }, populateProductDetailsAmazon
-                          );
-                          break;
-          case 'primeabgb': chrome.tabs.executeScript(
-                            tabs[0].id,
-                            { code: 'document.body.innerHTML' }, populateProductDetailsPrimeABGB
-                          );
-                          break;
-          case 'tatacliq': chrome.tabs.executeScript(
-                            tabs[0].id,
-                            { code: 'document.body.innerHTML' }, populateProductDetailsTataCliq
-                          );
-                          break;
-          case 'ikea': chrome.tabs.executeScript(
-                        tabs[0].id,
-                        { code: 'document.body.innerHTML' }, populateProductDetailsIkea
-                      );
-                      break;
-          case 'ajio': chrome.tabs.executeScript(
-                        tabs[0].id,
-                        { code: 'document.body.innerHTML' }, populateProductDetailsAjio
-                      );
-                      break;
-                    
-          case 'freshtohome': chrome.tabs.executeScript(
-                        tabs[0].id,
-                        { code: 'document.body.innerHTML' }, populateProductDetailsFTH
-                      );
-                      break;
-          case 'jiomart': chrome.tabs.executeScript(
-                        tabs[0].id,
-                        { code: 'document.body.innerHTML' }, populateProductDetailsJio
-                      );
-                      break;
-          case 'myntra': chrome.tabs.executeScript(
-                        tabs[0].id,
-                        { code: 'document.body.innerHTML' }, populateProductDetailsMyntra
-                      );
-                      break;
-                      
-        } 
-        
+        if (site) {
+          try {
+            const results = await chrome.scripting.executeScript({
+              target: { tabId: tabs[0].id },
+              func: () => document.body.innerHTML
+            });
+
+            const htmlContent = results[0].result;
+
+            switch(site){
+              case 'flipkart':
+                populateProductDetailsFlipkart([htmlContent]);
+                break;
+
+              case 'amazon':
+                populateProductDetailsAmazon([htmlContent]);
+                break;
+
+              case 'primeabgb':
+                populateProductDetailsPrimeABGB([htmlContent]);
+                break;
+
+              case 'tatacliq':
+                populateProductDetailsTataCliq([htmlContent]);
+                break;
+
+              case 'ikea':
+                populateProductDetailsIkea([htmlContent]);
+                break;
+
+              case 'ajio':
+                populateProductDetailsAjio([htmlContent]);
+                break;
+
+              case 'freshtohome':
+                populateProductDetailsFTH([htmlContent]);
+                break;
+
+              case 'jiomart':
+                populateProductDetailsJio([htmlContent]);
+                break;
+
+              case 'myntra':
+                populateProductDetailsMyntra([htmlContent]);
+                break;
+            }
+          } catch (error) {
+            console.error('Error executing script:', error);
+          }
+        }
     });
 
 
